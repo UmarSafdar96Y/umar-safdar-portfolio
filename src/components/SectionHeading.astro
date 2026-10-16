@@ -1,0 +1,45 @@
+---
+import { siteConfig } from "../config";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="lg:col-span-4 @container">
+  <h2 class="section-heading font-bold text-gray-900" style={`--chars: ${title.length}`}>
+    {title}
+  </h2>
+  <div
+    class="w-[75px] h-[5px] mt-2 rounded-full"
+    style={`background-color: ${siteConfig.accentColor}`}
+  >
+  </div>
+</div>
+
+<style>
+  /* IBM Plex Mono glyphs are 0.6em wide, so cap the size at whatever lets the
+     whole word fit its column. Long titles shrink only when they would overflow. */
+  .section-heading {
+    --size: 1.875rem;
+    font-size: min(var(--size), 100cqw / (var(--chars) * 0.62));
+    line-height: 1.1;
+  }
+  @media (width >= 40rem) {
+    .section-heading {
+      --size: 2.25rem;
+    }
+  }
+  @media (width >= 48rem) {
+    .section-heading {
+      --size: 3rem;
+    }
+  }
+  @media (width >= 80rem) {
+    .section-heading {
+      --size: 4.5rem;
+    }
+  }
+</style>
